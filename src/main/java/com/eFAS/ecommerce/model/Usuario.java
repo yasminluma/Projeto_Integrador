@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name ="usuario")
-public class Usuário {
+public class Usuario {
 	
 	@Id @NotNull @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id; 
