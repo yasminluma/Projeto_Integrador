@@ -9,4 +9,5 @@ import com.eFAS.ecommerce.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
 	public List<Usuario> findAllByNomeContainingIgnoreCase(String nome);
+	public List<Usuario> findAllByUsuario(String usuario);
 }
