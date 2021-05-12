@@ -1,6 +1,7 @@
 package com.eFAS.ecommerce.Control;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,15 +17,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eFAS.ecommerce.Repositories.UsuarioRepository;
+import com.eFAS.ecommerce.model.UserLogin;
 import com.eFAS.ecommerce.model.Usuario;
+import com.eFAS.ecommerce.service.UsuarioService;
 
 @RestController
-@RequestMapping("/usuario")
-@CrossOrigin("*")
+@RequestMapping("/usuarios")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
 	
 	@Autowired
 	private UsuarioRepository repository;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@GetMapping
 	public ResponseEntity<List<Usuario>> getAll(){
@@ -46,6 +52,18 @@ public class UsuarioController {
 	@PostMapping
 	public ResponseEntity<Usuario> post(@RequestBody Usuario usuario){
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
+	}
+	
+	@PostMapping("/logar")
+	public ResponseEntity<UserLogin> Autentication(@RequestBody Optional<UserLogin> user){
+		return usuarioService.Logar(user).map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());		
+	}
+
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Optional<Usuario>> Cadastrar(@RequestBody Usuario usuario){
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(usuarioService.CadastrarUsuario(usuario));
 	}
 	
 	@PutMapping
