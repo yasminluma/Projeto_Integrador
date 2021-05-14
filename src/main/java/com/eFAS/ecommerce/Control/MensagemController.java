@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eFAS.ecommerce.Repositories.MensagemRepository;
 import com.eFAS.ecommerce.model.Mensagem;
 import com.eFAS.ecommerce.model.Produto;
+import com.eFAS.ecommerce.model.Usuario;
 
 @RestController
 @RequestMapping("/mensagem")
@@ -39,15 +40,15 @@ public class MensagemController {
 	}
 	
 	@GetMapping("/destinatario/{destinatario}")
-	public ResponseEntity<List<Mensagem>> getByDestinatario(@PathVariable String destinatario)
+	public ResponseEntity<List<Mensagem>> getByDestinatario(@PathVariable Usuario destinatario)
 	{
-		return ResponseEntity.ok(repository.findAllByDestinatarioContainingIgnoreCase(destinatario));
+		return ResponseEntity.ok(repository.findAllByDestinatarioContaining(destinatario));
 	}
 	
 	@GetMapping("/remetente/{remetente}")
-	public ResponseEntity<List<Mensagem>> getByRemetente(@PathVariable String remetente)
+	public ResponseEntity<List<Mensagem>> getByRemetente(@PathVariable Usuario remetente)
 	{
-		return ResponseEntity.ok(repository.findAllByRemetenteContainingIgnoreCase(remetente));
+		return ResponseEntity.ok(repository.findAllByRemetenteContaining(remetente));
 	}
 	
 	@GetMapping("/texto/{texto}")
