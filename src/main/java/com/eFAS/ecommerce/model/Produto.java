@@ -1,11 +1,15 @@
 package com.eFAS.ecommerce.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,12 +29,26 @@ public class Produto {
 	@NotNull 
 	private double preco;
 	
-	@NotNull @Size(min=5, max=100)
-	private String formaPagamento;
-	
 	@Size(min=5, max=300)
 	private String observacao;
 	
+	private String foto;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date date = new java.sql.Date(System.currentTimeMillis());
+	
+	public String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
 	@ManyToOne @JsonIgnoreProperties("produto")
 	private Categoria categoria;
 	
@@ -63,12 +81,7 @@ public class Produto {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	public String getFormaPagamento() {
-		return formaPagamento;
-	}
-	public void setFormaPagamento(String formaPagamento) {
-		this.formaPagamento = formaPagamento;
-	}
+
 	public String getObservacao() {
 		return observacao;
 	}
