@@ -32,6 +32,20 @@ public class UsuarioService {
 		return Optional.ofNullable(repository.save(usuario));
 		}
 	}
+	
+	
+
+	public Optional<Usuario> AtualizarUsuario(Usuario usuario) {
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		String senhaEncoder = encoder.encode(usuario.getSenha());
+		usuario.setSenha(senhaEncoder);
+		
+		return Optional.ofNullable(repository.save(usuario));
+		}
+	
+	
 		public Optional<UserLogin> Logar(Optional<UserLogin> user){
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			Optional<Usuario> usuario = repository.findByEmail(user.get().getUsuario());

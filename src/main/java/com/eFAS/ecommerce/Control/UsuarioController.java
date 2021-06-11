@@ -67,8 +67,9 @@ public class UsuarioController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<Usuario> put(@RequestBody Usuario usuario){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(usuario));
+	public ResponseEntity<Optional<Usuario>> put(@RequestBody Usuario usuario){
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(usuarioService.AtualizarUsuario(usuario));
 	}
 	
 	@DeleteMapping("/{id}")
