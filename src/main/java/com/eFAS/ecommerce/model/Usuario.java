@@ -30,6 +30,8 @@ public class Usuario {
 	@NotNull @Size(min=2, max=100)
 	private String senha;
 	
+	private long celular;
+
 	@OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("usuario")
 	private List<Produto> produtos;
@@ -98,5 +100,12 @@ public class Usuario {
 		this.mensagemEnviada = mensagemEnviada;
 	}
 	
+	public long getCelular() {
+		return celular;
+	}
+
+	public void setCelular(long celular) {
+		this.celular = celular;
+	}
 
 }
